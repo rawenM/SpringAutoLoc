@@ -1,26 +1,32 @@
 package tn.esprit.spring.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
+import tn.esprit.spring.entity.Vehicule;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@ToString
-@NoArgsConstructor //constructeur par defaut
-@AllArgsConstructor //constructeur personnalisé
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
-@FieldDefaults(level=AccessLevel.PRIVATE)
 public class Agence {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idAgence;
+    private Long id;
+
     private String nom;
+    private String ville;
     private String adresse;
     private String telephone;
-    private String ville;
+
+    @OneToMany(mappedBy = "agence")
+    private List<Vehicule> vehicules = new ArrayList<>();
+
+    @OneToMany(mappedBy = "agence")
+    private List<Employe> employes = new ArrayList<>();
 }

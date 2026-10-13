@@ -1,8 +1,8 @@
 package tn.esprit.spring.entity;
 
 public enum CategorieVehicule {
-    Citadine,
-    Berline,
+    CITADINE,
+    BERLINE,
     SUV,
-    Utilitaire
+    UTILITAIRE
 }

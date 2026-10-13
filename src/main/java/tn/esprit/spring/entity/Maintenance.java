@@ -1,27 +1,27 @@
 package tn.esprit.spring.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
-
+import java.util.ArrayList;
 @Entity
 @Getter
 @Setter
-@ToString
-@NoArgsConstructor //constructeur par defaut
-@AllArgsConstructor //constructeur personnalisé
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
-@FieldDefaults(level=AccessLevel.PRIVATE)
 public class Maintenance {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idMaintenance;
-    private String description;
+    private Long id;
+
     private LocalDate dateDebut;
     private LocalDate dateFin;
+
+    private String description;
+
+    @ManyToOne
+    private Vehicule vehicule;
 }

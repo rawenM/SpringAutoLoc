@@ -1,27 +1,34 @@
 package tn.esprit.spring.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
-@ToString
-@NoArgsConstructor //constructeur par defaut
-@AllArgsConstructor //constructeur personnalisé
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
-@FieldDefaults(level=AccessLevel.PRIVATE)
 public class Contrat {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idContrat;
+    private Long id;
+
     private LocalDate dateSignature;
-    private BigDecimal montantTotal;
-    private boolean valide;
+
+    private Double montantTotal;
+
+    private Boolean valide;
+
+    @OneToOne
+    @JoinColumn(name = "reservation_id")
+    private Reservation reservation;
+
+    @OneToMany(mappedBy = "contrat")
+    private List<Paiement> paiements = new ArrayList<>();
 }

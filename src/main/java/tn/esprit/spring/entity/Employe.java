@@ -2,23 +2,29 @@ package tn.esprit.spring.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 
 @Entity
 @Getter
 @Setter
-@ToString
-@NoArgsConstructor //constructeur par defaut
-@AllArgsConstructor //constructeur personnalisé
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
-@FieldDefaults(level=AccessLevel.PRIVATE)
-//persistence des données
 public class Employe {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idEmploye;
+    private Long id;
+
     private String nom;
     private String prenom;
+
     @Enumerated(EnumType.STRING)
     private RoleEmploye role;
+
+    @ManyToOne
+    private Agence agence;
 }

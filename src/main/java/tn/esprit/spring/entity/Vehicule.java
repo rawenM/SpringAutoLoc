@@ -1,30 +1,49 @@
 package tn.esprit.spring.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
 
-import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@ToString
-@NoArgsConstructor //constructeur par defaut
-@AllArgsConstructor //constructeur personnalisé
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
-@FieldDefaults(level=AccessLevel.PRIVATE)
 public class Vehicule {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-private  Long idVehicule;
-private String marque;
-private String modele;
-private String immatriculation;
-private CategorieVehicule categorie;
-private BigDecimal tarifJournalier;
-private StatutVehicule statut;
+    private Long id;
+
+    private String immatriculation;
+    private String marque;
+    private String modele;
+
+    private Double tarifJournalier;
+
+    @Enumerated(EnumType.STRING)
+    private StatutVehicule statut;
+
+    @Enumerated(EnumType.STRING)
+    private CategorieVehicule categorie;
+
+    @ManyToOne
+    private Agence agence;
+
+    @ManyToMany
+    @JoinTable(
+            name = "vehicule_equipement",
+            joinColumns = @JoinColumn(name = "vehicule_id"),
+            inverseJoinColumns = @JoinColumn(name = "equipement_id")
+    )
+    private List<Equipement> equipements = new ArrayList<>();
+
+    @OneToMany(mappedBy = "vehicule")
+    private List<Reservation> reservations = new ArrayList<>();
+
+    @OneToMany(mappedBy = "vehicule")
+    private List<Maintenance> maintenances = new ArrayList<>();
 }

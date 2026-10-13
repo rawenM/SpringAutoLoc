@@ -1,8 +1,8 @@
 package tn.esprit.spring.entity;
 
 public enum StatutReservation {
-    EnAttente,
-    Confirmee,
-    Annulee,
-    Terminee
+    EN_ATTENTE,
+    CONFIRMEE,
+    ANNULEE,
+    TERMINEE
 }
